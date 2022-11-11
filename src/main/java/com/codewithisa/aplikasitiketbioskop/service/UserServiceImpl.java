@@ -65,4 +65,9 @@ public class UserServiceImpl implements UserService{
         userRepository.updateUser(username_before,email_address_before,password_before,
                 username_after,email_address_after,password_after);
     }
+
+    @Override
+    public void clearTable() {
+        userRepository.deleteAll();
+    }
 }

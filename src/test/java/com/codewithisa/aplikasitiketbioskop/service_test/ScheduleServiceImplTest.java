@@ -85,4 +85,8 @@ public class ScheduleServiceImplTest {
 
         }
     }
+    @Test
+    public void deleteAll(){
+        scheduleServiceImpl.clearTable();
+    }
 }

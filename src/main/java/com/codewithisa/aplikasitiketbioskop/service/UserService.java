@@ -14,4 +14,5 @@ public interface UserService {
     void deleteUser(String username) throws Exception;
     void updateUser(String username_before, String email_address_before, String password_before,
                     String username_after, String email_address_after, String password_after) throws Exception;
+    void clearTable();
 }

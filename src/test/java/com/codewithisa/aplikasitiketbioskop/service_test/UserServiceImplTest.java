@@ -50,4 +50,8 @@ public class UserServiceImplTest {
 
         }
     }
+    @Test
+    public void deleteAll(){
+        userServiceImpl.clearTable();
+    }
 }

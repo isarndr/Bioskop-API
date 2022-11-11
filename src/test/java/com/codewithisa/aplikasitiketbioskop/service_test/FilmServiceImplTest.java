@@ -64,4 +64,8 @@ public class FilmServiceImplTest {
 
         }
     }
+    @Test
+    public void deleteAll(){
+        filmServiceImpl.clearTable();
+    }
 }

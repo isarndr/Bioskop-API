@@ -67,4 +67,9 @@ public class FilmServiceImpl implements FilmService{
             System.out.println(filmF.getFilmName());
         });
     }
+
+    @Override
+    public void clearTable() {
+        filmRepository.deleteAll();
+    }
 }

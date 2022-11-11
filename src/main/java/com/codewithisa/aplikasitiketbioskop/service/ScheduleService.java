@@ -8,4 +8,5 @@ public interface ScheduleService {
     void addSchedule(Schedules schedules);
     void printScheduleByFilmName(String filmName) throws Exception;
     Schedules findScheduleByScheduleId(Long scheduleId) throws Exception;
+    void clearTable();
 }

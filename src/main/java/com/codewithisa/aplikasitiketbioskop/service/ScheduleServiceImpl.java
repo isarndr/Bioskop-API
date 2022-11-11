@@ -46,4 +46,9 @@ public class ScheduleServiceImpl implements ScheduleService{
         Schedules schedule = scheduleRepository.findScheduleByScheduleId(scheduleId);
         return schedule;
     }
+
+    @Override
+    public void clearTable() {
+        scheduleRepository.deleteAll();
+    }
 }

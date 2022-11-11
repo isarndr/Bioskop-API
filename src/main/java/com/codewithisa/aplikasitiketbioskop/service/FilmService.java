@@ -13,4 +13,5 @@ public interface FilmService {
     void updateFilmName(String filmNameBefore, String filmNameAfter) throws Exception;
     void deleteFilm(String filmName) throws Exception;
     void printAllFilmYangSedangTayang() throws Exception;
+    void clearTable();
 }
