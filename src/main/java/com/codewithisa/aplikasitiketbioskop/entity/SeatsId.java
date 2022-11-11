@@ -13,6 +13,4 @@ import java.io.Serializable;
 public class SeatsId implements Serializable {
     private Character studioName;
     private String nomorKursi;
-    @ManyToOne
-    private Schedules schedule;
 }

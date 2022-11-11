@@ -18,7 +18,6 @@ public class Seats {
     private Character studioName;
     @Id
     private String nomorKursi;
-    @Id
     @ManyToOne
     private Schedules schedule;
 }
