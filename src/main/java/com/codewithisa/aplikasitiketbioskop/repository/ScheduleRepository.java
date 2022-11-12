@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedules, Long> {
-    @Query(nativeQuery = true, value = "select * from schedules where films_film_code=:film_code")
+    @Query(nativeQuery = true, value = "select * from schedules where film_code=:film_code")
     List<Schedules> findAllScheduleByFilmCode(@Param("film_code") Long film_code);
     @Query(nativeQuery = true, value = "select * from schedules where schedule_id=:scheduleId")
     Schedules findScheduleByScheduleId(@Param("scheduleId") Long scheduleId);

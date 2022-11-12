@@ -22,5 +22,6 @@ public class Schedules {
     private Integer hargaTiket;
     private Character studioName;
     @ManyToOne
+    @JoinColumn(name = "film_code")
     private Films films;
 }

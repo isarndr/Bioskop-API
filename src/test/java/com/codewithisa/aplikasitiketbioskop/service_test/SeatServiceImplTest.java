@@ -33,8 +33,8 @@ public class SeatServiceImplTest {
     }
     @Test
     public void addSeat(){
-        String filmName="Dory";
-        Character studioName='B';
+        String filmName="Nemo";
+        Character studioName='A';
         Films films = Films.builder()
                 .filmName(filmName)
                 .sedangTayang(true)
@@ -52,8 +52,8 @@ public class SeatServiceImplTest {
         }
         Schedules schedules=Schedules.builder()
                 .tanggalTayang("12 Nov 2022")
-                .jamMulai("20.00")
-                .jamSelesai("22.00")
+                .jamMulai("13.00")
+                .jamSelesai("15.00")
                 .hargaTiket(40000)
                 .films(films)
                 .studioName(studioName)
