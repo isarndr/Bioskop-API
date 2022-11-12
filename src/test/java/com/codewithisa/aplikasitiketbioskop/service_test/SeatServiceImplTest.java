@@ -63,4 +63,8 @@ public class SeatServiceImplTest {
                 .build();
         seatServiceImpl.addSeat(seats);
     }
+    @Test
+    public void clearTable(){
+        seatServiceImpl.clearTable();
+    }
 }

@@ -10,4 +10,5 @@ public interface SeatService {
     void printAllAvailableSeatsByScheduleId(Long scheduleId);
     void pesanTiket(Long scheduleId,String nomorKursi) throws Exception;
     void addSeat(Seats seat);
+    void clearTable();
 }

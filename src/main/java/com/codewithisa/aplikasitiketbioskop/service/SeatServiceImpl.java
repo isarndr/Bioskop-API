@@ -33,4 +33,9 @@ public class SeatServiceImpl implements SeatService{
     public void addSeat(Seats seat) {
         seatRepository.save(seat);
     }
+
+    @Override
+    public void clearTable() {
+        seatRepository.deleteAll();
+    }
 }
