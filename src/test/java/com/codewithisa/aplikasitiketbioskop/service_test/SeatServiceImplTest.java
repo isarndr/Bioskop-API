@@ -33,8 +33,10 @@ public class SeatServiceImplTest {
     }
     @Test
     public void addSeat(){
+        String filmName="Dory";
+        Character studioName='B';
         Films films = Films.builder()
-                .filmName("test 1")
+                .filmName(filmName)
                 .sedangTayang(true)
                 .build();
         try{
@@ -42,29 +44,54 @@ public class SeatServiceImplTest {
         }
         catch (Exception e){
             try{
-                films=filmServiceImpl.findAllFilmByFilmName("test 1").get(0);
+                films=filmServiceImpl.findAllFilmByFilmName(filmName).get(0);
             }
             catch (Exception ex){
 
             }
         }
         Schedules schedules=Schedules.builder()
-                .tanggalTayang("11 Nov 2022")
-                .jamSelesai("22.00")
+                .tanggalTayang("12 Nov 2022")
                 .jamMulai("20.00")
+                .jamSelesai("22.00")
                 .hargaTiket(40000)
                 .films(films)
+                .studioName(studioName)
                 .build();
         scheduleServiceImpl.addSchedule(schedules);
+//        Long scheduleId=0l;
+        Long scheduleId= schedules.getScheduleId();
+//        try{
+//            scheduleId=schedules.getScheduleId();
+//        }
+//        catch (Exception e){
+//
+//        }
         Seats seats = Seats.builder()
-                .nomorKursi("A1")
-                .studioName('A')
-                .schedule(schedules)
+                .nomorKursi(studioName+"1")
+                .studioName(studioName)
+                .scheduleId(scheduleId)
                 .build();
         seatServiceImpl.addSeat(seats);
+
+        Seats seats2 = Seats.builder()
+                .nomorKursi(studioName+"2")
+                .studioName(studioName)
+                .scheduleId(scheduleId)
+                .build();
+        seatServiceImpl.addSeat(seats2);
+
+        Seats seats3 = Seats.builder()
+                .nomorKursi(studioName+"3")
+                .studioName(studioName)
+                .scheduleId(scheduleId)
+                .build();
+        seatServiceImpl.addSeat(seats3);
     }
     @Test
     public void clearTable(){
         seatServiceImpl.clearTable();
+        scheduleServiceImpl.clearTable();
+        filmServiceImpl.clearTable();
     }
 }

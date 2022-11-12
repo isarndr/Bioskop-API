@@ -2,6 +2,7 @@ package com.codewithisa.aplikasitiketbioskop.service;
 
 import com.codewithisa.aplikasitiketbioskop.entity.Films;
 import com.codewithisa.aplikasitiketbioskop.entity.Schedules;
+import com.codewithisa.aplikasitiketbioskop.entity.Seats;
 import com.codewithisa.aplikasitiketbioskop.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,10 @@ public class MenuService {
     FilmServiceImpl filmServiceImpl;
     @Autowired
     ScheduleServiceImpl scheduleServiceImpl;
-//    @Autowired
-//    SeatServiceImpl seatServiceImpl;
+    @Autowired
+    SeatServiceImpl seatServiceImpl;
 
     public void menu(Scanner scanner){
-        System.out.println();
-        System.out.println("Aplikasi pemesanan tiket bioskop");
-        System.out.println();
         System.out.println("Pilih menu:\n" +
                 "1. Masuk\n" +
                 "2. Bikin akun baru\n" +
@@ -57,41 +55,23 @@ public class MenuService {
         catch (Exception e){
 
         }
+        System.out.println();
         System.out.print("Ketik nama film untuk melihat jadwal (huruf harus sesuai): ");
         String namaFilm = scanner.nextLine();
         System.out.println();
 
-        List<Films> filmList=new ArrayList<>();
         try{
-            filmList=filmServiceImpl.findAllFilmByFilmName(namaFilm);
+            scheduleServiceImpl.printScheduleByFilmName(namaFilm);
         }
         catch (Exception e){
 
-        }
-        Long filmCode=0l;
-        for(int i=0;i<filmList.size();i++){
-            filmCode=filmList.get(i).getFilmCode();
-//            List<Schedules> scheduleList=scheduleServiceImpl.findAllScheduleByFilmCode(filmCode);
-//            scheduleList.forEach(scheduleL -> {
-//                System.out.println("Film\t\t\t: "+namaFilm);
-//                System.out.println("Tanggal tayang\t: "+scheduleL.getTanggalTayang());
-//                System.out.println("Jam mulai\t\t: "+scheduleL.getJamMulai());
-//                System.out.println("Jam selesai\t\t: "+scheduleL.getJamSelesai());
-//                System.out.println("Studio\t\t\t: "+scheduleL.getStudioName());
-//                System.out.println("Harga\t\t\t: Rp."+scheduleL.getHargaTiket());
-//                System.out.println("Kode jadwal\t\t: "+scheduleL.getScheduleId());
-//                System.out.println();
-//                System.out.println();
-//            });
         }
 
         System.out.print("Masukkan kode jadwal untuk memilih jadwal: ");
 
         Long scheduleId=scanner.nextLong();
 
-        System.out.println();
-
-        String studioName;
+//        Character studioName;
 //        try{
 //            studioName=scheduleServiceImpl.findScheduleByScheduleId(scheduleId).getStudioName();
 //        }
@@ -99,12 +79,26 @@ public class MenuService {
 //
 //        }
 
+        seatServiceImpl.printAllAvailableSeatsByScheduleId(scheduleId);
+        System.out.println();
 //        seatService.printKursiYangTersedia(scheduleId,studioName);
 
-        System.out.print("Masukkan nama kursi untuk memesan (tulisan harus sesuai): ");
+        List<Seats> seatsList=seatServiceImpl.getAllAvailableSeatsByScheduleId(scheduleId);
+        if(!seatsList.isEmpty()){
+            System.out.print("Masukkan nama kursi untuk memesan (tulisan harus sesuai): ");
+        }else{
+            scanner.nextLine();
+            menuSetelahLogin(scanner);
+        }
 
         String nomorKursi = scanner.next();
 
+        try{
+            seatServiceImpl.pesanTiket(scheduleId,nomorKursi);
+        }
+        catch (Exception e){
+
+        }
 //        seatService.pesantiket(scheduleId,nomorKursi);
 
     }
@@ -127,11 +121,13 @@ public class MenuService {
         try{
             userServiceImpl.addUser(activeUser);
             System.out.println("Akun berhasil dibuat");
+            System.out.println();
             menu(scanner);
         }
         catch (Exception e){
             System.out.println("username sudah terdaftar");
             System.out.println("Silahkan coba lagi");
+            System.out.println();
             bikinActiveUser(scanner);
         }
     }
@@ -139,11 +135,11 @@ public class MenuService {
     private void loginActiveUser(Scanner scanner) {
         Users activeUser = new Users();
 
-        System.out.print("username\t:");
+        System.out.print("username\t: ");
         String username = scanner.nextLine();
         activeUser.setUsername(username);
 
-        System.out.print("password\t:");
+        System.out.print("password\t: ");
         String password = scanner.nextLine();
         activeUser.setPassword(password);
         List<Users> activeUserList=new ArrayList<>();
@@ -163,6 +159,7 @@ public class MenuService {
         }
         else {
             System.out.println("Password salah");
+            System.out.println();
             loginActiveUser(scanner);
         }
     }

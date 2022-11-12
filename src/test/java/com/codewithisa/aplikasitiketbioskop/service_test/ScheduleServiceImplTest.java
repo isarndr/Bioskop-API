@@ -36,6 +36,7 @@ public class ScheduleServiceImplTest {
                 .hargaTiket(50000)
                 .jamMulai("20.00")
                 .jamSelesai("22.30")
+                .studioName('A')
                 .tanggalTayang("12 Nov 2022")
                 .build();
         scheduleServiceImpl.addSchedule(schedules);
@@ -47,10 +48,11 @@ public class ScheduleServiceImplTest {
             film = filmServiceImpl.findAllFilmByFilmName("film schedule").get(0);
             Schedules schedules = Schedules.builder()
                     .films(film)
-                    .hargaTiket(50000)
-                    .jamMulai("20.00")
-                    .jamSelesai("22.30")
-                    .tanggalTayang("12 Nov 2022")
+                    .hargaTiket(45000)
+                    .jamMulai("21.00")
+                    .studioName('B')
+                    .jamSelesai("23.30")
+                    .tanggalTayang("13 Nov 2022")
                     .build();
             scheduleServiceImpl.addSchedule(schedules);
         }
@@ -85,8 +87,8 @@ public class ScheduleServiceImplTest {
 
         }
     }
-    @Test
-    public void deleteAll(){
-        scheduleServiceImpl.clearTable();
-    }
+//    @Test
+//    public void deleteAll(){
+//        scheduleServiceImpl.clearTable();
+//    }
 }

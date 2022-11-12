@@ -20,6 +20,7 @@ public class Schedules {
     private String jamMulai;
     private String jamSelesai;
     private Integer hargaTiket;
+    private Character studioName;
     @ManyToOne
     private Films films;
 }

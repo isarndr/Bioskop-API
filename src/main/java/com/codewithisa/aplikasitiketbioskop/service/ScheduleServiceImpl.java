@@ -37,7 +37,9 @@ public class ScheduleServiceImpl implements ScheduleService{
                     "Jam mulai: "+schedulesS.getJamMulai()+"\n"+
                     "Jam selesai: "+schedulesS.getJamSelesai()+"\n"+
                     "Harga tiket: "+schedulesS.getHargaTiket()+"\n"+
-                    "Schedule id: "+schedulesS.getScheduleId());
+                    "Studio: "+schedulesS.getStudioName()+"\n" +
+                    "Kode jadwal: "+schedulesS.getScheduleId());
+            System.out.println();
         });
     }
 
@@ -50,5 +52,10 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public void clearTable() {
         scheduleRepository.deleteAll();
+    }
+
+    @Override
+    public List<Schedules> findAllSchedulesByFilmCode(Long filmCode) {
+        return scheduleRepository.findAllScheduleByFilmCode(filmCode);
     }
 }

@@ -16,7 +16,7 @@ public class FilmServiceImplTest {
 
     @Test
     public void addFilm(){
-        Films film = Films.builder().filmName("Film 3 true").sedangTayang(true).build();
+        Films film = Films.builder().filmName("Naruto Shippudden").sedangTayang(false).build();
         try{
             filmServiceImpl.addFilm(film);
         }
@@ -64,8 +64,8 @@ public class FilmServiceImplTest {
 
         }
     }
-    @Test
-    public void deleteAll(){
-        filmServiceImpl.clearTable();
-    }
+//    @Test
+//    public void deleteAll(){
+//        filmServiceImpl.clearTable();
+//    }
 }

@@ -11,8 +11,8 @@ import java.util.Scanner;
 @SpringBootApplication
 public class AplikasiTiketBioskopApplication implements CommandLineRunner {
 
-//	@Autowired
-//	MenuService menuService;
+	@Autowired
+	MenuService menuService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AplikasiTiketBioskopApplication.class, args);
@@ -20,8 +20,11 @@ public class AplikasiTiketBioskopApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		Scanner scanner = new Scanner(System.in);
-//		menuService.menu(scanner);
-//		scanner.close();
+		System.out.println();
+		System.out.println("Aplikasi pemesanan tiket bioskop");
+		System.out.println();
+		Scanner scanner = new Scanner(System.in);
+		menuService.menu(scanner);
+		scanner.close();
 	}
 }

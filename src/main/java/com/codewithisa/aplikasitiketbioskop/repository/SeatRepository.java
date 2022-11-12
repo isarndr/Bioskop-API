@@ -10,14 +10,14 @@ import java.util.List;
 
 @Repository
 public interface SeatRepository extends JpaRepository<Seats,Long> {
-    @Query(nativeQuery = true, value = "select * from seats where schedule_schedule_id=:schedule_schedule_id")
-    List<Seats> getAllAvailableSeatsByScheduleId(@Param("schedule_schedule_id") Long schedule_schedule_id);
-    @Query(nativeQuery = true, value = "select * from seats where schedule_schedule_id=:schedule_schedule_id and" +
+    @Query(nativeQuery = true, value = "select * from seats where schedule_id=:schedule_id")
+    List<Seats> getAllAvailableSeatsByScheduleId(@Param("schedule_id") Long schedule_id);
+    @Query(nativeQuery = true, value = "select * from seats where schedule_id=:schedule_id and" +
             " nomor_kursi=:nomor_kursi")
-    List<Seats> getAllAvailableSeatsByScheduleIdAndNomorKursi(@Param("schedule_schedule_id") Long schedule_schedule_id,
+    List<Seats> getAllAvailableSeatsByScheduleIdAndNomorKursi(@Param("schedule_id") Long schedule_id,
                                                               @Param("nomor_kursi") String nomor_kursi);
-    @Query(nativeQuery = true, value = " delete from seats where schedule_schedule_id=:schedule_schedule_id and " +
+    @Query(nativeQuery = true, value = " delete from seats where schedule_id=:schedule_id and " +
             "nomor_kursi=:nomor_kursi")
-    void deleteRowByScheduleIdAndNomorKursi(@Param("schedule_schedule_id") Long schedule_schedule_id,
+    void deleteRowByScheduleIdAndNomorKursi(@Param("schedule_id") Long schedule_id,
                                             @Param("nomor_kursi") String nomor_kursi);
 }

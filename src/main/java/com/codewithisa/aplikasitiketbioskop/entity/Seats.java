@@ -18,6 +18,6 @@ public class Seats {
     private Character studioName;
     @Id
     private String nomorKursi;
-    @ManyToOne
-    private Schedules schedule;
+    @Id
+    private Long scheduleId;
 }

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.ManyToOne;
+
 import java.io.Serializable;
 
 @Data
@@ -13,4 +13,5 @@ import java.io.Serializable;
 public class SeatsId implements Serializable {
     private Character studioName;
     private String nomorKursi;
+    private Long scheduleId;
 }
