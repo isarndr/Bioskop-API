@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -14,12 +15,13 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
 
     @Override
-    public void addUser(Users user) throws Exception {
+    public Users addUser(Users user) throws Exception {
         List<Users> usersList=userRepository.findAllUserByUsername(user.getUsername());
         if(usersList.size()>0){
             throw new Exception("username "+user.getUsername()+" telah terdaftar");
         }
         userRepository.save(user);
+        return user;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void updateUser(String username_before, String email_address_before, String password_before,
+    public Users updateUser(String username_before, String email_address_before, String password_before,
                            String username_after, String email_address_after, String password_after) throws Exception {
         List<Users> usersList= userRepository.findAllUserByUsername(username_before);
         if(usersList.isEmpty()){
@@ -64,10 +66,25 @@ public class UserServiceImpl implements UserService{
         System.out.println("User updated");
         userRepository.updateUser(username_before,email_address_before,password_before,
                 username_after,email_address_after,password_after);
+        return userRepository.getUserByUsername(username_after);
     }
 
     @Override
     public void clearTable() {
         userRepository.deleteAll();
+    }
+
+    @Override
+    public List<Users> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public Users getUserByUsername(String username) {
+        Optional<Users> user = Optional.ofNullable(userRepository.getUserByUsername(username));
+        if(user.isPresent()){
+            return user.get();
+        }
+        return null;
     }
 }

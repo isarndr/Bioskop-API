@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface UserRepository extends JpaRepository<Users, String> {
                     @Param("password_after") String password_after);
     @Query(nativeQuery = true, value = "select * from users where username=:username")
     List<Users> findAllUserByUsername(@Param("username") String username);
+    @Query(nativeQuery = true, value = "select * from users where username=:username")
+    Users getUserByUsername(@Param("username") String username);
 }
