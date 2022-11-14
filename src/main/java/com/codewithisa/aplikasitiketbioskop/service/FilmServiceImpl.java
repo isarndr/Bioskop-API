@@ -91,6 +91,11 @@ public class FilmServiceImpl implements FilmService{
     }
 
     @Override
+    public List<Films> getAllFilmsYangSedangTayang() {
+        return filmRepository.findAllFilmYangSedangTayang();
+    }
+
+    @Override
     public void clearTable() {
         filmRepository.deleteAll();
     }

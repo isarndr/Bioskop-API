@@ -2,6 +2,7 @@ package com.codewithisa.aplikasitiketbioskop.service;
 
 import com.codewithisa.aplikasitiketbioskop.entity.Films;
 import com.codewithisa.aplikasitiketbioskop.entity.Schedules;
+import com.codewithisa.aplikasitiketbioskop.exception.ResourceNotFoundException;
 import com.codewithisa.aplikasitiketbioskop.repository.FilmRepository;
 import com.codewithisa.aplikasitiketbioskop.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,20 @@ public class ScheduleServiceImpl implements ScheduleService{
                     "Kode jadwal: "+schedulesS.getScheduleId());
             System.out.println();
         });
+    }
+
+    @Override
+    public List<Schedules> getSchedulesByFilmName(String filmName) {
+        List<Films> filmsList=filmRepository.findFilmByFilmName(filmName);
+        if(filmsList.isEmpty()){
+            throw new ResourceNotFoundException("Films","filmName",filmName);
+        }
+        Long filmCode=filmsList.get(0).getFilmCode();
+        List<Schedules> schedulesList = scheduleRepository.findAllScheduleByFilmCode(filmCode);
+        if(schedulesList.isEmpty()){
+            throw new ResourceNotFoundException("Schedules","filmCode",filmCode);
+        }
+        return schedulesList;
     }
 
     @Override

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/films")
 public class FilmController {
@@ -31,5 +33,9 @@ public class FilmController {
     public ResponseEntity<String> deleteFilmByFilmCode(@PathVariable("filmCode") Long filmCode){
         filmService.deleteFilm(filmCode);
         return new ResponseEntity<>("Film deleted",HttpStatus.OK);
+    }
+    @GetMapping("sedang-tayang")
+    public List<Films> getAllFilmYangSedangTayang(){
+        return filmService.getAllFilmsYangSedangTayang();
     }
 }
