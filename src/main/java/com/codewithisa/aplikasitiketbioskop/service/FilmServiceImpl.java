@@ -1,11 +1,14 @@
 package com.codewithisa.aplikasitiketbioskop.service;
 
 import com.codewithisa.aplikasitiketbioskop.entity.Films;
+import com.codewithisa.aplikasitiketbioskop.exception.ResourceNotFoundException;
 import com.codewithisa.aplikasitiketbioskop.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class FilmServiceImpl implements FilmService{
     @Autowired
@@ -27,12 +30,13 @@ public class FilmServiceImpl implements FilmService{
     }
 
     @Override
-    public void addFilm(Films film) throws Exception {
+    public Films addFilm(Films film) throws Exception {
         List<Films> filmsList=filmRepository.findFilmByFilmName(film.getFilmName());
         if(filmsList.size()>0){
             throw new Exception("Film sudah ada di daftar film");
         }
         filmRepository.save(film);
+        return film;
     }
 
     @Override
@@ -46,6 +50,16 @@ public class FilmServiceImpl implements FilmService{
     }
 
     @Override
+    public Films updateFilmName(Films film, Long filmCode) {
+        Films existingFilm = filmRepository.findFilmByFilmCode(filmCode).orElseThrow(
+                ()->new ResourceNotFoundException("Film","filmCode",filmCode)
+        );
+        existingFilm.setFilmName(film.getFilmName());
+        filmRepository.save(existingFilm);
+        return existingFilm;
+    }
+
+    @Override
     public void deleteFilm(String filmName) throws Exception {
         List<Films> filmsList=filmRepository.findFilmByFilmName(filmName);
         if(filmsList.size()==0){
@@ -54,6 +68,14 @@ public class FilmServiceImpl implements FilmService{
         System.out.println("Film dengan judul "+filmName+" telah dihapus");
         Films film = filmsList.get(0);
         filmRepository.delete(film);
+    }
+
+    @Override
+    public void deleteFilm(Long filmCode) {
+        Films film = filmRepository.findFilmByFilmCode(filmCode).orElseThrow(
+                ()->new ResourceNotFoundException("Film", "filmCode",filmCode)
+        );
+        filmRepository.deleteById(filmCode);
     }
 
     @Override
