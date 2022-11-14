@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, String> {
+public interface UserRepository extends JpaRepository<Users, Long> {
     @Query(nativeQuery = true, value = "call change_active_user(:username_before," +
             ":email_address_before," +
             ":password_before," +

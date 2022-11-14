@@ -17,6 +17,8 @@ import javax.persistence.Id;
 @Builder
 public class Users {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
     private String username;
     private String emailAddress;
     private String password;

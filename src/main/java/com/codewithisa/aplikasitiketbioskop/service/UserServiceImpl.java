@@ -1,11 +1,11 @@
 package com.codewithisa.aplikasitiketbioskop.service;
 
 import com.codewithisa.aplikasitiketbioskop.entity.Users;
+import com.codewithisa.aplikasitiketbioskop.exception.ResourceNotFoundException;
 import com.codewithisa.aplikasitiketbioskop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,5 +86,16 @@ public class UserServiceImpl implements UserService{
             return user.get();
         }
         return null;
+    }
+
+    @Override
+    public Users getUserByUserId(Long userId) {
+        Optional<Users> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            return user.get();
+        }
+        else{
+            throw new ResourceNotFoundException("User","userId",userId);
+        }
     }
 }

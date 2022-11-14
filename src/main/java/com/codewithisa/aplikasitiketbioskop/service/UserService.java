@@ -17,4 +17,5 @@ public interface UserService {
     void clearTable();
     List<Users> getAllUsers();
     Users getUserByUsername(String username);
+    Users getUserByUserId(Long userId);
 }
