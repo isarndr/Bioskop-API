@@ -57,6 +57,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void deleteUser(Long userId) {
+        // check whether a user exist in the database or not
+        userRepository.findById(userId).orElseThrow(
+                ()->new ResourceNotFoundException("User","userId",userId)
+        );
+        userRepository.deleteById(userId);
+    }
+
+    @Override
     public Users updateUser(String username_before, String email_address_before, String password_before,
                            String username_after, String email_address_after, String password_after) throws Exception {
         List<Users> usersList= userRepository.findAllUserByUsername(username_before);
@@ -67,6 +76,18 @@ public class UserServiceImpl implements UserService{
         userRepository.updateUser(username_before,email_address_before,password_before,
                 username_after,email_address_after,password_after);
         return userRepository.getUserByUsername(username_after);
+    }
+
+    @Override
+    public Users updateUser(Users user, Long userId) {
+        Users existingUser = userRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User","userId",userId)
+        );
+        existingUser.setUsername(user.getUsername());
+        existingUser.setEmailAddress(user.getEmailAddress());
+        existingUser.setPassword(user.getPassword());
+        userRepository.save(existingUser);
+        return existingUser;
     }
 
     @Override

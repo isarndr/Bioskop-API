@@ -12,8 +12,10 @@ public interface UserService {
     List<Users> findAllUserByUsername(String username) throws Exception;
     void printAllUsername() throws Exception;
     void deleteUser(String username) throws Exception;
+    void deleteUser(Long userId);
     Users updateUser(String username_before, String email_address_before, String password_before,
                     String username_after, String email_address_after, String password_after) throws Exception;
+    Users updateUser(Users user, Long userId);
     void clearTable();
     List<Users> getAllUsers();
     Users getUserByUsername(String username);
