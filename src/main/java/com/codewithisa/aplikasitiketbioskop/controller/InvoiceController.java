@@ -1,6 +1,7 @@
 package com.codewithisa.aplikasitiketbioskop.controller;
 
 import com.codewithisa.aplikasitiketbioskop.service.InvoiceService;
+import io.swagger.v3.oas.annotations.Operation;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import java.util.Map;
 public class InvoiceController {
     @Autowired
     InvoiceService invoiceService;
+
+    @Operation(summary = "untuk membuat tiket dalam bentuk pdf")
     @PostMapping("generate-tiket")
     public void generateTiket(HttpServletResponse response,
                               @RequestParam("filmName") String filmName,
