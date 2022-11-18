@@ -7,16 +7,13 @@
     <field name="filmName" class="java.lang.String"/>
     <field name="tanggalTayang" class="java.lang.String"/>
     <field name="jamMulai" class="java.lang.String"/>
-    <field name="studioName" class="java.lang.String"/>
     <field name="nomorKursi" class="java.lang.String"/>
-    <field name="hargaTiket" class="java.lang.String"/>
     <field name="username" class="java.lang.String"/>
-    <field name="emailAddress" class="java.lang.String"/>
     <background>
         <band splitType="Stretch"/>
     </background>
     <title>
-        <band height="136" splitType="Stretch">
+        <band height="115" splitType="Stretch">
             <staticText>
                 <reportElement x="189" y="16" width="424" height="86" uuid="c14c4517-0d66-4938-b407-6e9a8418a870"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
@@ -40,12 +37,12 @@
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="26"/>
                 </textElement>
-                <text><![CDATA[Judul film: ]]></text>
+                <text><![CDATA[Nama film: ]]></text>
             </staticText>
         </band>
     </pageHeader>
     <columnHeader>
-        <band height="101" splitType="Stretch">
+        <band height="150" splitType="Stretch">
             <staticText>
                 <reportElement x="10" y="0" width="390" height="30" uuid="aea2f233-cb02-4df0-ab20-c52215ae24fb"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
@@ -75,19 +72,33 @@
                 <textFieldExpression><![CDATA[$F{jamMulai}]]></textFieldExpression>
             </textField>
             <staticText>
-                <reportElement x="10" y="61" width="390" height="30" uuid="0aed90e6-2520-4643-9cbc-cf5d728a8dcb"/>
+                <reportElement x="10" y="60" width="390" height="30" uuid="c33bd720-a7fd-489c-bf8e-da9e2c2ea63e"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="20"/>
                 </textElement>
-                <text><![CDATA[Studio:]]></text>
+                <text><![CDATA[Nomor kursi: ]]></text>
             </staticText>
             <textField>
-                <reportElement x="400" y="60" width="400" height="30" uuid="00f64a73-9b68-402d-94ee-3825c7aacb8b"/>
+                <reportElement x="400" y="60" width="400" height="30" uuid="947559cd-2202-4001-b693-c0ffb0556d97"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="20"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{studioName}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{nomorKursi}]]></textFieldExpression>
             </textField>
+            <textField>
+                <reportElement x="400" y="91" width="400" height="30" uuid="a95d3a1e-7e53-4f2d-9ab0-4902de100881"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="20"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="10" y="91" width="390" height="30" uuid="f8136fdf-4319-4a27-ac7c-f6ad07256c2f"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="20"/>
+                </textElement>
+                <text><![CDATA[username: ]]></text>
+            </staticText>
         </band>
     </columnHeader>
     <detail>
@@ -97,66 +108,9 @@
         <band height="14" splitType="Stretch"/>
     </columnFooter>
     <pageFooter>
-        <band height="137" splitType="Stretch">
-            <textField>
-                <reportElement x="400" y="70" width="400" height="30" uuid="a95d3a1e-7e53-4f2d-9ab0-4902de100881"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="10" y="69" width="390" height="30" uuid="f8136fdf-4319-4a27-ac7c-f6ad07256c2f"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20"/>
-                </textElement>
-                <text><![CDATA[username: ]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="400" y="96" width="400" height="30" uuid="5d9fca2c-f1ab-45c0-b2cd-43510b4f1274"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{emailAddress}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="10" y="96" width="390" height="30" uuid="820efe41-6d93-47b1-8814-91a3e302f49f"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20"/>
-                </textElement>
-                <text><![CDATA[email: ]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="400" y="-10" width="400" height="30" uuid="947559cd-2202-4001-b693-c0ffb0556d97"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{nomorKursi}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="10" y="-10" width="390" height="30" uuid="c33bd720-a7fd-489c-bf8e-da9e2c2ea63e"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20"/>
-                </textElement>
-                <text><![CDATA[Nomor kursi: ]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="400" y="30" width="400" height="30" uuid="17b9cf17-4bec-46d7-af40-fc5b8b5497b7"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{hargaTiket}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="10" y="30" width="390" height="30" uuid="9a2ac3f2-078d-485a-a142-4b03526cff06"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20"/>
-                </textElement>
-                <text><![CDATA[Harga tiket: ]]></text>
-            </staticText>
-        </band>
+        <band height="19" splitType="Stretch"/>
     </pageFooter>
     <summary>
-        <band height="42" splitType="Stretch"/>
+        <band height="10" splitType="Stretch"/>
     </summary>
 </jasperReport>

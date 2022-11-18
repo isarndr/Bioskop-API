@@ -30,11 +30,8 @@ public class InvoiceController {
             pemesan.put("filmName", "Robot");
             pemesan.put("tanggalTayang", "18 Nov 2022");
             pemesan.put("jamMulai", "20.00 WIB");
-            pemesan.put("studioName", "A");
             pemesan.put("nomorKursi", "A4");
-            pemesan.put("hargaTiket", "50.000");
             pemesan.put("username", "keong");
-            pemesan.put("emailAddress", "keong@yahoo.com");
             dataPemesan.add(pemesan);
 
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataPemesan);
