@@ -19,7 +19,12 @@ public class InvoiceController {
     @Autowired
     InvoiceService invoiceService;
     @PostMapping("generate-tiket")
-    public void generateTiket(HttpServletResponse response){
+    public void generateTiket(HttpServletResponse response,
+                              @RequestParam("filmName") String filmName,
+                              @RequestParam("tanggalTayang") String tanggalTayang,
+                              @RequestParam("jamMulai") String jamMulai,
+                              @RequestParam("nomorKursi") String nomorKursi,
+                              @RequestParam("username") String username){
         try{
             JasperReport sourceFileName = JasperCompileManager.compileReport(
                     ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX+"tiket.jrxml")
@@ -27,11 +32,11 @@ public class InvoiceController {
             );
             List<Map<String,String>> dataPemesan = new ArrayList<>();
             Map<String, String> pemesan = new HashMap<>();
-            pemesan.put("filmName", "Robot");
-            pemesan.put("tanggalTayang", "18 Nov 2022");
-            pemesan.put("jamMulai", "20.00 WIB");
-            pemesan.put("nomorKursi", "A4");
-            pemesan.put("username", "keong");
+            pemesan.put("filmName", filmName);
+            pemesan.put("tanggalTayang", tanggalTayang);
+            pemesan.put("jamMulai", jamMulai);
+            pemesan.put("nomorKursi", nomorKursi);
+            pemesan.put("username", username);
             dataPemesan.add(pemesan);
 
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataPemesan);
