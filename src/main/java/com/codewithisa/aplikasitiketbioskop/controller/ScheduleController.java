@@ -3,6 +3,7 @@ package com.codewithisa.aplikasitiketbioskop.controller;
 import com.codewithisa.aplikasitiketbioskop.entity.Schedules;
 import com.codewithisa.aplikasitiketbioskop.service.ScheduleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class ScheduleController {
 
     @Operation(summary = "untuk menampilkan semua jadwal dari film tertentu")
     @PostMapping("{filmName}")
-    public List<Schedules> getSchedulesByFilmName(@PathVariable("filmName") String filmName){
+    public List<Schedules> getSchedulesByFilmName(@Schema(example = "Nemo") @PathVariable("filmName") String filmName){
         return scheduleService.getSchedulesByFilmName(filmName);
     }
 }
