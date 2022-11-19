@@ -12,5 +12,6 @@ public interface ScheduleService {
     List<Schedules> getSchedulesByFilmName(String filmName);
     Schedules findScheduleByScheduleId(Long scheduleId) throws Exception;
     void clearTable();
+    void deleteScheduleByScheduleId(Long scheduleId);
     List<Schedules> findAllSchedulesByFilmCode(Long filmCode);
 }

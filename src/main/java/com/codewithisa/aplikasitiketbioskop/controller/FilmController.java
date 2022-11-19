@@ -1,7 +1,9 @@
 package com.codewithisa.aplikasitiketbioskop.controller;
 
 import com.codewithisa.aplikasitiketbioskop.entity.Films;
+import com.codewithisa.aplikasitiketbioskop.entity.Schedules;
 import com.codewithisa.aplikasitiketbioskop.service.FilmService;
+import com.codewithisa.aplikasitiketbioskop.service.ScheduleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ import java.util.List;
 public class FilmController {
     @Autowired
     FilmService filmService;
+
+    @Autowired
+    ScheduleService scheduleService;
 
     @Operation(summary = "untuk menambahkan film baru")
     @PostMapping("add-film")
@@ -38,6 +43,10 @@ public class FilmController {
     @Operation(summary = "untuk menghapus film")
     @DeleteMapping("delete-film/{filmCode}")
     public ResponseEntity<String> deleteFilmByFilmCode(@Schema(example = "1") @PathVariable("filmCode") Long filmCode){
+        List<Schedules> schedulesList=scheduleService.findAllSchedulesByFilmCode(filmCode);
+        schedulesList.forEach(schedules->{
+            scheduleService.deleteScheduleByScheduleId(schedules.getScheduleId());
+        });
         filmService.deleteFilm(filmCode);
         return new ResponseEntity<>("Film deleted",HttpStatus.OK);
     }

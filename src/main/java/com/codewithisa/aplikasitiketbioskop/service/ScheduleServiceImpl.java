@@ -70,6 +70,12 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
+    public void deleteScheduleByScheduleId(Long scheduleId) {
+        Schedules schedules=scheduleRepository.findScheduleByScheduleId(scheduleId);
+        scheduleRepository.delete(schedules);
+    }
+
+    @Override
     public List<Schedules> findAllSchedulesByFilmCode(Long filmCode) {
         return scheduleRepository.findAllScheduleByFilmCode(filmCode);
     }
