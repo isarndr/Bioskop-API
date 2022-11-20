@@ -14,6 +14,10 @@ import javax.persistence.*;
 @Builder
 @IdClass(SeatsId.class)
 public class Seats {
+    /**
+     * di class ini tabel Seats memiliki composite key yaitu studioName, nomorKursi, scheduleId.
+     * hal ini digunakan untuk keperluan pemesanan tiket (semuanya harus bergabung untuk menjadi sesuatu yang unik).
+     */
     @Id
     private Character studioName;
     @Id

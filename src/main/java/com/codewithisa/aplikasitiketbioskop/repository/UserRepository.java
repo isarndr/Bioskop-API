@@ -11,6 +11,17 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
+
+    /**
+     * method untuk mengubah semua field Users yang sudah terdaftar di database. di sini digunakan store procedure
+     * change_active_user.
+     * @param username_before username awal yang ingin diubah
+     * @param email_address_before email address awal yang ingin diubah
+     * @param password_before password awawl yang ingin diubah
+     * @param username_after username setelah diubah
+     * @param email_address_after email address setelah diubah
+     * @param password_after password setelah diubah
+     */
     @Query(nativeQuery = true, value = "call change_active_user(:username_before," +
             ":email_address_before," +
             ":password_before," +
@@ -23,8 +34,20 @@ public interface UserRepository extends JpaRepository<Users, Long> {
                     @Param("username_after") String username_after,
                     @Param("email_address_after") String email_address_after,
                     @Param("password_after") String password_after);
+
+    /**
+     * meretrieve list of Users dari database berdasarkan username.
+     * @param username username yang ingin dicari object Usersnya
+     * @return list of Users berdasarkan username yang diinputkan
+     */
     @Query(nativeQuery = true, value = "select * from users where username=:username")
     List<Users> findAllUserByUsername(@Param("username") String username);
+
+    /**
+     * meretrieve satu Users berdasarkan username.
+     * @param username username yang ingin dicari object Usersnya.
+     * @return mereturn object Users berdasarkan username yang telah diinputkan
+     */
     @Query(nativeQuery = true, value = "select * from users where username=:username")
     Users getUserByUsername(@Param("username") String username);
 }

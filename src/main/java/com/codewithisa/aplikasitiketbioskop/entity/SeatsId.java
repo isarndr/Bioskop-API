@@ -11,7 +11,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SeatsId implements Serializable {
+
     private Character studioName;
+
     private String nomorKursi;
+
     private Long scheduleId;
 }

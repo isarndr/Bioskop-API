@@ -17,14 +17,18 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(example = "1")
     private Long userId;
+
     @Schema(example = "isarndr")
     private String username;
+
     @Schema(example = "isa@yahoo.com")
     private String emailAddress;
+
     @Schema(example = "123")
     private String password;
 }

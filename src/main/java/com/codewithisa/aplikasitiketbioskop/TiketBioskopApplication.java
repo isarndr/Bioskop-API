@@ -16,6 +16,14 @@ public class TiketBioskopApplication implements CommandLineRunner {
 		SpringApplication.run(TiketBioskopApplication.class, args);
 	}
 
+	/**
+	 * uncomment untuk mencoba aplikasi dengan terminal. anda harus login (jika sudah punya akun) untuk melihat
+	 * film yang sedang tayang dan melakukan pemesanan tiket, jika belum punya akun maka diperlukan create akun terlebih
+	 * dahulu yang bisa dilakukan di terminal. sebelum memesan pastikan kursi untuk masing-masing film dan jadwal
+	 * sudah diinput melalui file SeatServiceImplTest.
+	 * @param args
+	 * @throws Exception
+	 */
 	@Override
 	public void run(String... args) throws Exception {
 //		System.out.println();

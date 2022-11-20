@@ -10,18 +10,24 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @Entity mean untuk membuat table di database melalui Java
+ */
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder //untuk mempermudah set class fields
 public class Films {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Schema(example = "1")
+    @Schema(example = "1")  // untuk set example di swagger
     private Long filmCode;
+
     @Schema(example = "Nemo")
     private String filmName;
+
     @Schema(example = "true")
     private boolean sedangTayang;
 }
