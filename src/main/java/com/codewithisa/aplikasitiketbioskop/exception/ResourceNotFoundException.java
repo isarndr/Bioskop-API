@@ -3,6 +3,10 @@ package com.codewithisa.aplikasitiketbioskop.exception;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+// class ini digunakan jika data yang ingin diambil dari database tidak tersedia di database. class ini digunakan
+// untuk menghindari null pointer exception
+
 @Getter
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException{
@@ -15,12 +19,7 @@ public class ResourceNotFoundException extends RuntimeException{
 
     private Object fieldValue;
 
-    /**
-     * method digunakan just in case suatu data tidak exist di database
-     * @param resourceName
-     * @param fieldName
-     * @param fieldValue
-     */
+
     public ResourceNotFoundException(String resourceName, String fieldName, Object fieldValue) {
         super(String.format("%s not found with%s : '%s'", resourceName, fieldName, fieldValue));
         this.resourceName = resourceName;

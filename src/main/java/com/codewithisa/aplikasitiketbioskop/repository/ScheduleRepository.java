@@ -12,7 +12,7 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<Schedules, Long> {
 
     /**
-     * meretrieve list Schedules berdasarkan kode film dari database.
+     * mengambil semua Schedules berdasarkan filmCode dari database
      * @param film_code kode film yang ingin dicari objek Schedulesnya.
      * @return mereturn list Schedules berdasarkan kode film yang diinputkan.
      */
@@ -20,7 +20,7 @@ public interface ScheduleRepository extends JpaRepository<Schedules, Long> {
     List<Schedules> findAllScheduleByFilmCode(@Param("film_code") Long film_code);
 
     /**
-     * meretrieve satu Schedules berdasarkan id schedule dari database.
+     * mengambil Schedules berdasarkan scheduleId dari database
      * @param scheduleId id schedule yang ingin dicari objek Schedulesnya
      * @return mereturn object Schedules berdasarkan id schedule yang ingin dicari.
      */

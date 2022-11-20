@@ -9,23 +9,21 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @Repository mean untuk melakukan operasi di database malalui Java
- */
+// layer repository digunakan untuk menghubungkan java dengan database secara langsung
+
 @Repository
 public interface FilmRepository extends JpaRepository<Films,Long> {
 
     /**
-     * untuk meretrieve list Films berdasarkan nama film. nativeQuery = true meaning string di value merepresentasikan
-     * exact query di database (postgres/PgAdmin).
-     * @param film_name nama film yang ingin diambil
-     * @return list Films dengan nama film yang ingin dicari
+     * mengambil semua Films berdasarkan filmName dari database
+     * @param film_name nama film yang ingin diambil objek2 Films nya dari database
+     * @return list Films yang memiliki nama film yang sesuai
      */
     @Query(nativeQuery = true,value = "select * from films where film_name=:film_name")
     List<Films> findFilmByFilmName(@Param("film_name") String film_name);
 
     /**
-     * untuk meretrieve satu film berdasarkan kode film dari database.
+     * mengambil Films berdasarkan filmCode dari database
      * @param filmCode kode film yang ingin diambil object Films nya.
      * @return Optional<Films>. Optional karena untuk menghindari null pointer exception.
      */
@@ -33,8 +31,7 @@ public interface FilmRepository extends JpaRepository<Films,Long> {
     Optional<Films> findFilmByFilmCode(@Param("filmCode") Long filmCode);
 
     /**
-     * untuk mengubah nama film di database. di sini digunakan store procedure method di postgres (di bagian call
-     * change_film_name dst).
+     * mengubah filmName yang ada di database. filmName harus sudah terdaftar di database
      * @param film_name nama film yang ingin diubah (nama film sebelum diubah)
      * @param film_name_after nama film hasil perubahan (nama film setelah diubah)
      */
@@ -42,7 +39,7 @@ public interface FilmRepository extends JpaRepository<Films,Long> {
     void updateFilmName(@Param("film_name_before") String film_name, @Param("film_name_after") String film_name_after);
 
     /**
-     * meretrieve list Films yang sedang tayang (sedangTayang = true) dari database.
+     * mengambil semua Films yang sedang tayang
      * @return
      */
     @Query(nativeQuery = true,value = "select * from films where sedang_tayang = true")

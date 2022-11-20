@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * untuk menambahkan user baru ke database.
+     * menambahkan Users baru ke database
      * @param user object Users yang ingin ditambahkan ke database.
      * @return object Users yang ditambahkan ke database.
      * @throws Exception jika Users sudah terdaftar di database maka addUser akan gagal.
@@ -32,20 +32,20 @@ public interface UserService {
     void printAllUsername() throws Exception;
 
     /**
-     * untuk menghapus Users dari database berdasarkan username
+     * untuk menghapus Users dari database
      * @param username username yang ingin dihapus dari database
      * @throws Exception jika username tidak ditemukan di database maka exception akan muncul
      */
     void deleteUser(String username) throws Exception;
 
     /**
-     * untuk menghapus Users dari database bersarkan userId
+     * untuk menghapus Users dari database
      * @param userId userId yang ingin dihapus dari database
      */
     void deleteUser(Long userId);
 
     /**
-     * untuk mengubah Users yang sudah terdaftar di database
+     * untuk mengubah Users yang ada di database
      * @param username_before username awal
      * @param email_address_before email address awal
      * @param password_before password awal
@@ -59,7 +59,7 @@ public interface UserService {
                     String username_after, String email_address_after, String password_after) throws Exception;
 
     /**
-     * untuk mengubah Users yang sudah terdaftar di database
+     * untuk mengubah Users yang ada di database
      * @param user object Users yang ingin diubah
      * @param userId userId yang ingin diubah
      * @return object Users yang telah diubah
@@ -78,7 +78,7 @@ public interface UserService {
     List<Users> getAllUsers();
 
     /**
-     * untuk mengambil Users dari database berdasarkan username
+     * untuk mengambil Users berdasarkan username dari database
      * @param username username yang ingin diambil object Usersnya
      * @return object Users berdasarkan username yang telah diinput
      */

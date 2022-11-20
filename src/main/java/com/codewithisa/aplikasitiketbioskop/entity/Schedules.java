@@ -14,6 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 public class Schedules {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Schema(example = "1")
@@ -35,7 +36,7 @@ public class Schedules {
     private Character studioName;
 
     /**
-     * relasi Schedules dengan Films adalah many to one atau dengan kata lain satu film dapat memiliki banyak schedule.
+     * Schedules dan Films memiliki relasi many to one alias satu film dapat memiliki banyak schedule
      * foreign key diset di filmCode.
      */
     @ManyToOne

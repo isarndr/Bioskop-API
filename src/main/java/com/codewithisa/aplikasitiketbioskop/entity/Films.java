@@ -10,18 +10,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * @Entity mean untuk membuat table di database melalui Java
- */
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+// membuat tabel films di database
+
+@Entity //create table films di postgres
+@Data // getter setter
+@NoArgsConstructor // constructor with no arguments
+@AllArgsConstructor // constructor with all arguments
 @Builder //untuk mempermudah set class fields
 public class Films {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id //primary key
+    @GeneratedValue(strategy = GenerationType.AUTO) // auto increment
     @Schema(example = "1")  // untuk set example di swagger
     private Long filmCode;
 

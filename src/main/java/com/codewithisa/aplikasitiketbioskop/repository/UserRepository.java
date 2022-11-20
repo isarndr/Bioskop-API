@@ -13,8 +13,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<Users, Long> {
 
     /**
-     * method untuk mengubah semua field Users yang sudah terdaftar di database. di sini digunakan store procedure
-     * change_active_user.
+     * mengubah Users yang sudah terdaftar di database
      * @param username_before username awal yang ingin diubah
      * @param email_address_before email address awal yang ingin diubah
      * @param password_before password awawl yang ingin diubah
@@ -36,7 +35,7 @@ public interface UserRepository extends JpaRepository<Users, Long> {
                     @Param("password_after") String password_after);
 
     /**
-     * meretrieve list of Users dari database berdasarkan username.
+     * mengambil semua Users berdasarkan username dari database
      * @param username username yang ingin dicari object Usersnya
      * @return list of Users berdasarkan username yang diinputkan
      */
@@ -44,7 +43,7 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     List<Users> findAllUserByUsername(@Param("username") String username);
 
     /**
-     * meretrieve satu Users berdasarkan username.
+     * mengambil Users berdasarkan username dari database
      * @param username username yang ingin dicari object Usersnya.
      * @return mereturn object Users berdasarkan username yang telah diinputkan
      */

@@ -12,12 +12,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@IdClass(SeatsId.class)
+@IdClass(SeatsId.class)  // composite key
 public class Seats {
-    /**
-     * di class ini tabel Seats memiliki composite key yaitu studioName, nomorKursi, scheduleId.
-     * hal ini digunakan untuk keperluan pemesanan tiket (semuanya harus bergabung untuk menjadi sesuatu yang unik).
-     */
+
+    // di class ini tabel seats memiliki composite key yaitu studioName, nomorKursi, scheduleId.
+    // hal ini digunakan untuk keperluan pemesanan tiket (semuanya harus bergabung untuk menjadi sesuatu yang unik).
+
     @Id
     private Character studioName;
     @Id
