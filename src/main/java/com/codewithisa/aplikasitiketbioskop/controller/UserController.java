@@ -31,23 +31,23 @@ public class UserController {
         return null;
     }
 
-    @Operation(summary = "untuk menampilkan semua user yang sudah terdaftar")
-    @GetMapping("all-users")
-    public List<Users> getAllUsers(){
-        return userService.getAllUsers();
-    }
+//    @Operation(summary = "untuk menampilkan semua user yang sudah terdaftar")
+//    @GetMapping("all-users")
+//    public List<Users> getAllUsers(){
+//        return userService.getAllUsers();
+//    }
 
-    @Operation(summary = "untuk menampilkan user berdasarkan username")
-    @GetMapping("username/{username}")
-    public ResponseEntity<Users> getUserByUsername(@Schema(example = "isarndr")@PathVariable("username") String username){
-        return new ResponseEntity<Users>(userService.getUserByUsername(username),HttpStatus.OK);
-    }
+//    @Operation(summary = "untuk menampilkan user berdasarkan username")
+//    @GetMapping("username/{username}")
+//    public ResponseEntity<Users> getUserByUsername(@Schema(example = "isarndr")@PathVariable("username") String username){
+//        return new ResponseEntity<Users>(userService.getUserByUsername(username),HttpStatus.OK);
+//    }
 
-    @Operation(summary = "untuk menampilkan user berdasarkan user id")
-    @GetMapping("user-id/{userId}")
-    public ResponseEntity<Users> getUserByUserId(@Schema(example = "1")  @PathVariable("userId") Long userId){
-        return new ResponseEntity<>(userService.getUserByUserId(userId), HttpStatus.OK);
-    }
+//    @Operation(summary = "untuk menampilkan user berdasarkan user id")
+//    @GetMapping("user-id/{userId}")
+//    public ResponseEntity<Users> getUserByUserId(@Schema(example = "1")  @PathVariable("userId") Long userId){
+//        return new ResponseEntity<>(userService.getUserByUserId(userId), HttpStatus.OK);
+//    }
 
     @Operation(summary = "untuk mengubah user yang sudah terdaftar")
     @PutMapping("update-user/{userId}")
