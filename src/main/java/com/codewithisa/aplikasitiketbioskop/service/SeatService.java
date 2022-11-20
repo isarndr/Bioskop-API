@@ -42,4 +42,6 @@ public interface SeatService {
      * @return list Seats yang masih tersedia (yang dapat dipesan)
      */
     List<Seats> getAllAvailableSeatsByScheduleId(Long scheduleId);
+
+    Seats getSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) throws Exception;
 }

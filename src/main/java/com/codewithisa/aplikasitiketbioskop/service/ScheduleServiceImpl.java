@@ -79,4 +79,16 @@ public class ScheduleServiceImpl implements ScheduleService{
     public List<Schedules> findAllSchedulesByFilmCode(Long filmCode) {
         return scheduleRepository.findAllScheduleByFilmCode(filmCode);
     }
+
+    @Override
+    public Schedules findScheduleByJamMulaiAndStudioNameAndTanggalTayangAndFilmCode(String jamMulai, Character studioName,
+                                                                                    String tanggalTayang, Long filmCode)
+    throws Exception{
+        Schedules schedules = scheduleRepository.findScheduleByJamMulaiAndStudioNameAndTanggalTayangAndFilmCode(jamMulai,
+                studioName,tanggalTayang,filmCode);
+        if(schedules.equals(null)){
+            throw new Exception("Schedules tidak ditemukan");
+        }
+        return schedules;
+    }
 }

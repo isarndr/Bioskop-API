@@ -28,8 +28,8 @@ public class SeatServiceImpl implements SeatService{
         if(seatsList.isEmpty()){
             throw new Exception("Kursi tidak tersedia");
         }
-        System.out.println("Kursi telah dipesan");
-        System.out.println();
+        System.out.println("Kursi berhasil dipesan");
+//        System.out.println();
         seatRepository.deleteRowByScheduleIdAndNomorKursi(scheduleId,nomorKursi);
     }
 
@@ -46,5 +46,10 @@ public class SeatServiceImpl implements SeatService{
     @Override
     public List<Seats> getAllAvailableSeatsByScheduleId(Long scheduleId) {
         return seatRepository.getAllAvailableSeatsByScheduleId(scheduleId);
+    }
+
+    @Override
+    public Seats getSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) throws Exception {
+        return seatRepository.getAllAvailableSeatsByScheduleIdAndNomorKursi(scheduleId,nomorKursi).get(0);
     }
 }

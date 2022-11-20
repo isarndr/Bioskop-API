@@ -53,4 +53,11 @@ public interface ScheduleService {
      * @return list Schedules berdasarkan film code yang telah diinputkan
      */
     List<Schedules> findAllSchedulesByFilmCode(Long filmCode);
+
+    Schedules findScheduleByJamMulaiAndStudioNameAndTanggalTayangAndFilmCode(
+            String jamMulai,
+            Character studioName,
+            String tanggalTayang,
+            Long filmCode
+    ) throws Exception;
 }
