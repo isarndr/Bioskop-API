@@ -1,5 +1,6 @@
 package com.codewithisa.aplikasitiketbioskop.entity;
 
+import com.codewithisa.aplikasitiketbioskop.entity.enumeration.ERole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
