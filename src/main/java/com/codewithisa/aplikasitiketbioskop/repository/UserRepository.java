@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
@@ -49,4 +50,11 @@ public interface UserRepository extends JpaRepository<Users, Long> {
      */
     @Query(nativeQuery = true, value = "select * from users where username=:username")
     Users getUserByUsername(@Param("username") String username);
+
+    Optional<Users> findByUsername(String username);
+
+    Boolean existsByUsername(String username);
+
+    Boolean existsByEmailAddress(String emailAddress);
+
 }
