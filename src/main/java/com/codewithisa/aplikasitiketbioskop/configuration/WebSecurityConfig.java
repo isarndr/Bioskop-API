@@ -61,7 +61,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/films/delete-film/**"
                 ).hasAuthority(ERoles.ADMIN.name())
                 .antMatchers(
-                        "/users/update-user/**"
+                        "/users/update-user/**",
+                        "/users/delete-user/**",
+                        "/invoice/generate-tiket"
                 ).hasAuthority(ERoles.CUSTOMER.name())
 //                .antMatchers("/files/**").hasAuthority(ERoles.ADMIN.name())
 //                .antMatchers("/api/test/**").permitAll()

@@ -51,7 +51,7 @@ public class SeatServiceImplTest {
             }
         }
         Schedules schedules=Schedules.builder()
-                .tanggalTayang("22 Nov 2022")
+                .tanggalTayang("24 Nov 2022")
                 .jamMulai("11.00")
                 .jamSelesai("13.00")
                 .hargaTiket(45000)

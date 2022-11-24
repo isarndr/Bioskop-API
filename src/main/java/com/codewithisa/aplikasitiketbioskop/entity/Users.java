@@ -1,7 +1,10 @@
 package com.codewithisa.aplikasitiketbioskop.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +20,8 @@ import java.util.Set;
                 @UniqueConstraint(columnNames = "emailAddress")
         }
 )
+@Builder
+@AllArgsConstructor
 public class Users {
 
     @Id
