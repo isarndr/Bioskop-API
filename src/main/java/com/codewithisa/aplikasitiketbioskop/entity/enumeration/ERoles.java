@@ -1,5 +1,5 @@
 package com.codewithisa.aplikasitiketbioskop.entity.enumeration;
 
-public enum ERole{
+public enum ERoles {
     CUSTOMER, ADMIN
 }

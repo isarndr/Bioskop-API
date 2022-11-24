@@ -5,7 +5,7 @@ import com.codewithisa.aplikasitiketbioskop.configuration.JwtUtils;
 import com.codewithisa.aplikasitiketbioskop.entity.Role;
 import com.codewithisa.aplikasitiketbioskop.entity.UserDetailsImpl;
 import com.codewithisa.aplikasitiketbioskop.entity.Users;
-import com.codewithisa.aplikasitiketbioskop.entity.enumeration.ERole;
+import com.codewithisa.aplikasitiketbioskop.entity.enumeration.ERoles;
 import com.codewithisa.aplikasitiketbioskop.entity.request.SignupRequest;
 import com.codewithisa.aplikasitiketbioskop.entity.response.JwtResponse;
 import com.codewithisa.aplikasitiketbioskop.entity.response.MessageResponse;
@@ -104,12 +104,12 @@ public class LoginController {
         Set<Role> roles = new HashSet<>();
 
         if(strRoles == null) {
-            Role role = roleRepository.findByName(ERole.CUSTOMER)
+            Role role = roleRepository.findByName(ERoles.CUSTOMER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
             roles.add(role);
         } else {
             strRoles.forEach(role -> {
-                Role roles1 = roleRepository.findByName(ERole.valueOf(role))
+                Role roles1 = roleRepository.findByName(ERoles.valueOf(role))
                         .orElseThrow(() -> new RuntimeException("Error: Role " + role + " is not found"));
                 roles.add(roles1);
             });
@@ -121,5 +121,4 @@ public class LoginController {
 
 
 }
-
 

@@ -1,25 +1,20 @@
 package com.codewithisa.aplikasitiketbioskop.entity;
 
-import com.codewithisa.aplikasitiketbioskop.entity.enumeration.ERole;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.codewithisa.aplikasitiketbioskop.entity.enumeration.ERoles;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
-@Getter
-@Setter
-@Table(name="roles")
+@Data
+@Table(name = "roles")
 public class Role {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private ERole name;
+    private ERoles name;
 }
+

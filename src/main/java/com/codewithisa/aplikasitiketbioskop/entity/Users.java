@@ -1,10 +1,7 @@
 package com.codewithisa.aplikasitiketbioskop.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,9 +11,6 @@ import java.util.Set;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
@@ -43,25 +37,27 @@ public class Users {
     @Schema(example = "123")
     private String password;
 
-    @ManyToMany(
-            fetch = FetchType.LAZY
-    )
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable( name = "userxrole",
+            joinColumns = @JoinColumn(name ="user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-    public Users(String username, String emailAddress, String password) {
-        this.username = username;
-        this.emailAddress = emailAddress;
+
+    public Users(Long id, String email, String password) {
+        this.userId = id;
+        this.emailAddress = email;
         this.password = password;
     }
 
-    public Users(Long userId, String emailAddress, String password) {
-        this.userId = userId;
-        this.emailAddress = emailAddress;
+    public Users(String username, String email, String password) {
+        this.username = username;
+        this.emailAddress = email;
         this.password = password;
     }
+
+    public Users() {
+
+    }
+
 
 }

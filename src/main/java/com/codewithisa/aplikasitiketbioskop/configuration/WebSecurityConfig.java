@@ -1,6 +1,6 @@
 package com.codewithisa.aplikasitiketbioskop.configuration;
 
-import com.codewithisa.aplikasitiketbioskop.entity.enumeration.ERole;
+import com.codewithisa.aplikasitiketbioskop.entity.enumeration.ERoles;
 import com.codewithisa.aplikasitiketbioskop.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 
 @Configuration
 @EnableWebSecurity
@@ -56,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/mahasiswa/**").hasAuthority(ERole.CUSTOMER.name())
-                .antMatchers("/files/**").hasAuthority(ERole.ADMIN.name())
+                .antMatchers("/mahasiswa/**").hasAuthority(ERoles.CUSTOMER.name())
+                .antMatchers("/files/**").hasAuthority(ERoles.ADMIN.name())
 //                .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 
