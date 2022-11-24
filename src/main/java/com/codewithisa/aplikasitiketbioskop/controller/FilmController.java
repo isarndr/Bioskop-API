@@ -2,8 +2,11 @@ package com.codewithisa.aplikasitiketbioskop.controller;
 
 import com.codewithisa.aplikasitiketbioskop.entity.Films;
 import com.codewithisa.aplikasitiketbioskop.entity.Schedules;
+import com.codewithisa.aplikasitiketbioskop.entity.Seats;
+import com.codewithisa.aplikasitiketbioskop.entity.request.FilmRequest;
 import com.codewithisa.aplikasitiketbioskop.service.FilmService;
 import com.codewithisa.aplikasitiketbioskop.service.ScheduleService;
+import com.codewithisa.aplikasitiketbioskop.service.SeatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +25,91 @@ public class FilmController {
     @Autowired
     ScheduleService scheduleService;
 
+    @Autowired
+    SeatService seatService;
+
     @Operation(summary = "untuk menambahkan film baru")
     @PostMapping("add-film")
-    public ResponseEntity<Films> addFilm(@RequestBody Films film){
-        try{
-            return new ResponseEntity<>(filmService.addFilm(film), HttpStatus.CREATED);
+    public ResponseEntity<Films> addFilm(@RequestBody FilmRequest filmRequest){
+        Films film = Films
+                .builder()
+                .filmName(filmRequest.getFilmName())
+                .sedangTayang(filmRequest.getSedangTayang())
+                .build();
+        // if no schedule then just input the filmName and sedangTayang
+        if(
+                filmRequest.getStudioName() == null ||
+                filmRequest.getHargaTiket() == null ||
+                filmRequest.getJamMulai() == null ||
+                filmRequest.getJamSelesai() == null ||
+                filmRequest.getTanggalTayang() ==  null ||
+                filmRequest.getSedangTayang() == false
+        ){
+            try{
+                return new ResponseEntity<>(filmService.addFilm(film), HttpStatus.CREATED);
+            }
+            catch (Exception e){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
-        catch (Exception e){
-            e.getMessage();
+        // if there is schedule then
+        else{
+            String filmName= filmRequest.getFilmName();
+            Character studioName=filmRequest.getStudioName();
+            Films films = Films.builder()
+                    .filmName(filmName)
+                    .sedangTayang(true)
+                    .build();
+            try{
+                filmService.addFilm(films);
+            }
+            catch (Exception e){
+                try{
+                    films=filmService.findAllFilmByFilmName(filmName).get(0);
+                }
+                catch (Exception ex){
+
+                }
+            }
+            Schedules schedules=Schedules.builder()
+                    .tanggalTayang(filmRequest.getTanggalTayang())
+                    .jamMulai(filmRequest.getJamMulai())
+                    .jamSelesai(filmRequest.getJamSelesai())
+                    .hargaTiket(filmRequest.getHargaTiket())
+                    .films(films)
+                    .studioName(studioName)
+                    .build();
+            scheduleService.addSchedule(schedules);
+//        Long scheduleId=0l;
+            Long scheduleId= schedules.getScheduleId();
+//        try{
+//            scheduleId=schedules.getScheduleId();
+//        }
+//        catch (Exception e){
+//
+//        }
+            Seats seats = Seats.builder()
+                    .nomorKursi(studioName+"1")
+                    .studioName(studioName)
+                    .scheduleId(scheduleId)
+                    .build();
+            seatService.addSeat(seats);
+
+            Seats seats2 = Seats.builder()
+                    .nomorKursi(studioName+"2")
+                    .studioName(studioName)
+                    .scheduleId(scheduleId)
+                    .build();
+            seatService.addSeat(seats2);
+
+            Seats seats3 = Seats.builder()
+                    .nomorKursi(studioName+"3")
+                    .studioName(studioName)
+                    .scheduleId(scheduleId)
+                    .build();
+            seatService.addSeat(seats3);
         }
-        return null;
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Operation(summary = "untuk mengubah nama film yang sudah terdaftar")
