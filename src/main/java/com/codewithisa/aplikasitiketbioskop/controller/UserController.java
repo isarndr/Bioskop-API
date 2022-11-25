@@ -10,6 +10,7 @@ import com.codewithisa.aplikasitiketbioskop.repository.UserRepository;
 import com.codewithisa.aplikasitiketbioskop.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -109,12 +111,14 @@ public class UserController {
             userService.updateUser(users, userId);
         }
         catch (Exception e){
+            log.error("username or email already regestered, please input something else");
             return ResponseEntity.badRequest().body(
                     new MessageResponse("username or email already regestered, please input something else")
             );
         }
 
 //        return new ResponseEntity<>(userService.updateUser(user, userId),HttpStatus.OK);
+        log.info("user updated successfully");
         return ResponseEntity.ok(new MessageResponse("User updated successfully"));
     }
 
@@ -122,6 +126,7 @@ public class UserController {
     @DeleteMapping("delete-user/{userId}")
     public ResponseEntity<String> deleteUser(@Schema(example = "1")  @PathVariable("userId") Long userId){
         userService.deleteUser(userId);
-        return new ResponseEntity<>("User deleted",HttpStatus.OK);
+        log.info("user successfully deleted");
+        return new ResponseEntity<>("user successfully deleted",HttpStatus.OK);
     }
 }
