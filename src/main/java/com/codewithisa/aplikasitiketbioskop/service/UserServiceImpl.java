@@ -3,12 +3,14 @@ package com.codewithisa.aplikasitiketbioskop.service;
 import com.codewithisa.aplikasitiketbioskop.entity.Users;
 import com.codewithisa.aplikasitiketbioskop.exception.ResourceNotFoundException;
 import com.codewithisa.aplikasitiketbioskop.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
@@ -18,8 +20,10 @@ public class UserServiceImpl implements UserService{
     public Users addUser(Users user) throws Exception {
         List<Users> usersList=userRepository.findAllUserByUsername(user.getUsername());
         if(usersList.size()>0){
-            throw new Exception("username "+user.getUsername()+" telah terdaftar");
+            log.error("username "+user.getUsername()+" telah terdaftar, silahkan coba username lain");
+            throw new Exception("username "+user.getUsername()+" telah terdaftar silahkan coba username lain");
         }
+        log.info("user successfully added");
         userRepository.save(user);
         return user;
     }
@@ -31,6 +35,7 @@ public class UserServiceImpl implements UserService{
             usersList=userRepository.findAllUserByUsername("isa");
         }
         catch (Exception e){
+            log.error("username belum terdaftar");
             throw new Exception("username belum terdaftar");
         }
         return usersList;
@@ -40,6 +45,7 @@ public class UserServiceImpl implements UserService{
     public void printAllUsername() throws Exception {
         List<Users> usersList=userRepository.findAll();
         if(usersList.isEmpty()){
+            log.error("Tidak ada username yang terdaftar");
             throw new Exception("Tidak ada username yang terdaftar");
         }
         usersList.forEach(x->{
@@ -51,8 +57,10 @@ public class UserServiceImpl implements UserService{
     public void deleteUser(String username) throws Exception {
         List<Users> usersList = userRepository.findAllUserByUsername(username);
         if(usersList.isEmpty()){
+            log.error("Username "+username+" tidak ditemukan");
             throw new Exception("Username "+username+" tidak ditemukan");
         }
+        log.info("user succesfully deleted");
         userRepository.delete(usersList.get(0));
     }
 
@@ -62,6 +70,7 @@ public class UserServiceImpl implements UserService{
         userRepository.findById(userId).orElseThrow(
                 ()->new ResourceNotFoundException("User","userId",userId)
         );
+        log.info("user succesfully deleted");
         userRepository.deleteById(userId);
     }
 
@@ -70,9 +79,11 @@ public class UserServiceImpl implements UserService{
                            String username_after, String email_address_after, String password_after) throws Exception {
         List<Users> usersList= userRepository.findAllUserByUsername(username_before);
         if(usersList.isEmpty()){
+            log.error("User tidak ditemukan");
             throw new Exception("User tidak ditemukan");
         }
-        System.out.println("User updated");
+//        System.out.println("User updated");
+        log.info("user successfully updated");
         userRepository.updateUser(username_before,email_address_before,password_before,
                 username_after,email_address_after,password_after);
         return userRepository.getUserByUsername(username_after);
@@ -88,11 +99,13 @@ public class UserServiceImpl implements UserService{
         existingUser.setPassword(user.getPassword());
         existingUser.setRoles(user.getRoles());
         userRepository.save(existingUser);
+        log.info("user successfully updated");
         return existingUser;
     }
 
     @Override
     public void clearTable() {
+        log.info("users table is clear");
         userRepository.deleteAll();
     }
 
@@ -117,6 +130,7 @@ public class UserServiceImpl implements UserService{
             return user.get();
         }
         else{
+            log.error("userid is not found");
             throw new ResourceNotFoundException("User","userId",userId);
         }
     }

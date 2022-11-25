@@ -13,7 +13,7 @@ public class UserServiceImplTest {
 
     @Test
     public void addUser(){
-        Users user = Users.builder().username("isa").emailAddress("isa@yahoo.com").password("isa1").build();
+        Users user = Users.builder().username("coba2").emailAddress("coba2@yahoo.com").password("isa1").build();
         try{
             userServiceImpl.addUser(user);
         }
