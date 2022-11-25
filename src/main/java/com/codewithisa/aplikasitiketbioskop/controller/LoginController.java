@@ -11,6 +11,7 @@ import com.codewithisa.aplikasitiketbioskop.entity.response.JwtResponse;
 import com.codewithisa.aplikasitiketbioskop.entity.response.MessageResponse;
 import com.codewithisa.aplikasitiketbioskop.repository.RoleRepository;
 import com.codewithisa.aplikasitiketbioskop.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 public class LoginController {
@@ -77,6 +79,7 @@ public class LoginController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        log.info("you are in!, welcome {}!",login.get("username"));
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),
                 roles));
@@ -84,15 +87,17 @@ public class LoginController {
 
     @PostMapping("/signup")
     public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
-        System.out.println("signup!");
+//        System.out.println("signup!");
         Boolean usernameExist = usersRepository.existsByUsername(signupRequest.getUsername());
         if(Boolean.TRUE.equals(usernameExist)) {
+            log.error("Error: Username is already taken");
             return ResponseEntity.badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
         Boolean emailExist = usersRepository.existsByEmailAddress(signupRequest.getEmail());
         if(Boolean.TRUE.equals(emailExist)) {
+            log.error("Error: Email is already taken");
             return ResponseEntity.badRequest()
                     .body(new MessageResponse("Error: Email is already taken!"));
         }
@@ -116,6 +121,7 @@ public class LoginController {
         }
         users.setRoles(roles);
         usersRepository.save(users);
+        log.info("user registered successfully");
         return ResponseEntity.ok(new MessageResponse("User registered successfully"));
     }
 
