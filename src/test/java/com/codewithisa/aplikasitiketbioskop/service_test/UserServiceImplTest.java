@@ -2,10 +2,12 @@ package com.codewithisa.aplikasitiketbioskop.service_test;
 
 import com.codewithisa.aplikasitiketbioskop.entity.Users;
 import com.codewithisa.aplikasitiketbioskop.service.UserServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@Slf4j
 @SpringBootTest
 public class UserServiceImplTest {
     @Autowired
@@ -18,7 +20,8 @@ public class UserServiceImplTest {
             userServiceImpl.addUser(user);
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
     @Test

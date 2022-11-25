@@ -49,7 +49,8 @@ public class UserServiceImpl implements UserService{
             throw new Exception("Tidak ada username yang terdaftar");
         }
         usersList.forEach(x->{
-            System.out.println(x.getUsername());
+            log.info(x.getUsername());
+//            System.out.println(x.getUsername());
         });
     }
 
