@@ -16,7 +16,7 @@ public class FilmServiceImplTest {
 
     @Test
     public void addFilm(){
-        Films film = Films.builder().filmName("Naruto Shippudden").sedangTayang(false).build();
+        Films film = Films.builder().filmName("One Piece Red").sedangTayang(true).build();
         try{
             filmServiceImpl.addFilm(film);
         }

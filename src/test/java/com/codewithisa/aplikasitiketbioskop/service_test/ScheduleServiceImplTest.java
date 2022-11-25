@@ -81,7 +81,7 @@ public class ScheduleServiceImplTest {
     @Test
     void printScheduleByFilmName(){
         try{
-            scheduleServiceImpl.printScheduleByFilmName("film schedule");
+            scheduleServiceImpl.printScheduleByFilmName("Pengabdi Mantan");
         }
         catch (Exception e){
 

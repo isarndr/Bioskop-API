@@ -20,7 +20,7 @@ public class SeatServiceImplTest {
     ScheduleServiceImpl scheduleServiceImpl;
     @Test
     public void printAllAvailableSeatsByScheduleId(){
-        seatServiceImpl.printAllAvailableSeatsByScheduleId(1l);
+        seatServiceImpl.printAllAvailableSeatsByScheduleId(170l);
     }
     @Test
     public void pesanTiket(){
@@ -33,7 +33,7 @@ public class SeatServiceImplTest {
     }
     @Test
     public void addSeat(){
-        String filmName="Interstellar";
+        String filmName="Pengabdi Mantan";
         Character studioName='C';
         Films films = Films.builder()
                 .filmName(filmName)
@@ -51,7 +51,7 @@ public class SeatServiceImplTest {
             }
         }
         Schedules schedules=Schedules.builder()
-                .tanggalTayang("24 Nov 2022")
+                .tanggalTayang("27 Nov 2022")
                 .jamMulai("16.00")
                 .jamSelesai("18.00")
                 .hargaTiket(50000)
