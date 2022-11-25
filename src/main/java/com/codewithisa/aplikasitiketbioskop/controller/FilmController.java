@@ -9,6 +9,7 @@ import com.codewithisa.aplikasitiketbioskop.service.ScheduleService;
 import com.codewithisa.aplikasitiketbioskop.service.SeatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/films")
 public class FilmController {
@@ -49,6 +51,7 @@ public class FilmController {
                 return new ResponseEntity<>(filmService.addFilm(film), HttpStatus.CREATED);
             }
             catch (Exception e){
+                log.error("Film {} is already registered",filmRequest.getFilmName());
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
@@ -68,7 +71,6 @@ public class FilmController {
                     films=filmService.findAllFilmByFilmName(filmName).get(0);
                 }
                 catch (Exception ex){
-
                 }
             }
             Schedules schedules=Schedules.builder()
@@ -80,6 +82,7 @@ public class FilmController {
                     .studioName(studioName)
                     .build();
             scheduleService.addSchedule(schedules);
+            log.info("Schedule for {} movie successfully added", filmRequest.getFilmName());
 //        Long scheduleId=0l;
             Long scheduleId= schedules.getScheduleId();
 //        try{
@@ -108,6 +111,7 @@ public class FilmController {
                     .scheduleId(scheduleId)
                     .build();
             seatService.addSeat(seats3);
+            log.info("Seats for {} movie successfully added", filmRequest.getFilmName());
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -126,6 +130,7 @@ public class FilmController {
             scheduleService.deleteScheduleByScheduleId(schedules.getScheduleId());
         });
         filmService.deleteFilm(filmCode);
+        log.info("Film deleted");
         return new ResponseEntity<>("Film deleted",HttpStatus.OK);
     }
 

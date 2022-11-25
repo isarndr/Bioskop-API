@@ -4,21 +4,27 @@ import com.codewithisa.aplikasitiketbioskop.entity.Films;
 import com.codewithisa.aplikasitiketbioskop.entity.Schedules;
 import com.codewithisa.aplikasitiketbioskop.entity.Seats;
 import com.codewithisa.aplikasitiketbioskop.entity.Users;
+import com.codewithisa.aplikasitiketbioskop.entity.response.MessageResponse;
 import com.codewithisa.aplikasitiketbioskop.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/invoice")
 public class InvoiceController {
@@ -39,11 +45,12 @@ public class InvoiceController {
     @Operation(summary = "untuk membuat tiket dalam bentuk pdf")
     @PostMapping("generate-tiket")
     public void generateTiket(HttpServletResponse response,
-                              @Schema(example = "Nemo") @RequestParam("filmName") String filmName,
-                              @Schema(example = "18 November 2022") @RequestParam("tanggalTayang") String tanggalTayang,
-                              @Schema(example = "20.00 WIB") @RequestParam("jamMulai") String jamMulai,
-                              @Schema(example = "A3") @RequestParam("nomorKursi") String nomorKursi,
-                              @Schema(example = "isarndr") @RequestParam("username") String username){
+                                                         @Schema(example = "Nemo") @RequestParam("filmName") String filmName,
+                                                         @Schema(example = "18 November 2022") @RequestParam("tanggalTayang") String tanggalTayang,
+                                                         @Schema(example = "20.00 WIB") @RequestParam("jamMulai") String jamMulai,
+                                                         @Schema(example = "A3") @RequestParam("nomorKursi") String nomorKursi,
+                                                         @Schema(example = "isarndr") @RequestParam("username") String username)
+    throws IOException {
 
         // cek username
         Users user=null;
@@ -53,8 +60,11 @@ public class InvoiceController {
 
         }
         if(user==null){
-            System.out.println("username belum terdaftar");
-            return; //exit endpoint
+            log.error("username is not found");
+//            System.out.println("username belum terdaftar");
+//            return ResponseEntity.badRequest().body(new MessageResponse("username is not found")); //exit endpoint
+            response.sendError(HttpStatus.BAD_REQUEST.value());
+            return;
         }
 
 
@@ -70,7 +80,10 @@ public class InvoiceController {
         }
 
         if(filmCode==null){
-            System.out.println("film tidak tersedia");
+            log.error("film doesn't exist");
+//            System.out.println("film tidak tersedia");
+//            return ResponseEntity.badRequest().body(new MessageResponse("film doesn't exist"));
+            response.sendError(HttpStatus.BAD_REQUEST.value());
             return;
         }
 
@@ -82,7 +95,10 @@ public class InvoiceController {
         }
 
         if(!films.isSedangTayang()){
-            System.out.println("film sedang tidak tayang");
+            log.error("film sedang tidak tayang");
+//            System.out.println("film sedang tidak tayang");
+//            return ResponseEntity.badRequest().body(new MessageResponse("film sedang tidak tayang"));
+            response.sendError(HttpStatus.BAD_REQUEST.value());
             return;
         }
 
@@ -97,8 +113,11 @@ public class InvoiceController {
 
         }
         if(schedules== null){
-            System.out.println("Schedules tidak ditemukan");
-            return;         // exit end point
+            log.error("Schedule doesn't exist");
+//            System.out.println("Schedules tidak ditemukan");
+//            return ResponseEntity.badRequest().body(new MessageResponse("schedule doesn't exist"));         // exit end point
+            response.sendError(HttpStatus.BAD_REQUEST.value());
+            return;
         }
 //        System.out.println("Schedules ditemukan");
 
@@ -113,8 +132,11 @@ public class InvoiceController {
 
         }
         if(seat==null){
-            System.out.println("kursi tidak tersedia");
-            return; // exit end point
+            log.error("seats isn't available");
+//            System.out.println("kursi tidak tersedia");
+//            return ResponseEntity.badRequest().body(new MessageResponse("seats isn't available")); // exit end point
+            response.sendError(HttpStatus.BAD_REQUEST.value());
+            return;
         }
 //        System.out.println("kursi tersedia");
 
@@ -148,12 +170,13 @@ public class InvoiceController {
             response.setContentType("application/pdf");
             response.addHeader("Content-Disposition", "inline; filename=tiket.pdf;");
 
+            log.info("Seat successfully ordered");
             JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
 
         }
         catch (Exception e){
-            e.printStackTrace();
+            response.sendError(HttpStatus.BAD_REQUEST.value());
         }
     }
 }
