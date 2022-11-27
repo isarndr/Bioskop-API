@@ -60,4 +60,9 @@ public class SeatServiceImpl implements SeatService{
     public Seats getSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) throws Exception {
         return seatRepository.getAllAvailableSeatsByScheduleIdAndNomorKursi(scheduleId,nomorKursi).get(0);
     }
+
+    @Override
+    public void deleteSeatByScheduleId(Long scheduleId) {
+        seatRepository.deleteSeatByScheduleId(scheduleId);
+    }
 }

@@ -128,6 +128,7 @@ public class FilmController {
         List<Schedules> schedulesList=scheduleService.findAllSchedulesByFilmCode(filmCode);
         schedulesList.forEach(schedules->{
             scheduleService.deleteScheduleByScheduleId(schedules.getScheduleId());
+            seatService.deleteSeatByScheduleId(schedules.getScheduleId());
         });
         filmService.deleteFilm(filmCode);
         log.info("Film deleted");

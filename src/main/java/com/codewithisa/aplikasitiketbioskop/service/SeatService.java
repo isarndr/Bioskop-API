@@ -44,4 +44,6 @@ public interface SeatService {
     List<Seats> getAllAvailableSeatsByScheduleId(Long scheduleId);
 
     Seats getSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) throws Exception;
+
+    void deleteSeatByScheduleId(Long scheduleId);
 }
