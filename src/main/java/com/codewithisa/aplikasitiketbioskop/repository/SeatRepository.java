@@ -36,6 +36,8 @@ public interface SeatRepository extends JpaRepository<Seats,Long> {
      * @param schedule_id schedule id yang ingin dihapus
      * @param nomor_kursi nomor kursi yang ingin dihapus
      */
+    @Transactional
+    @Modifying
     @Query(nativeQuery = true, value = " delete from seats where schedule_id=:schedule_id and " +
             "nomor_kursi=:nomor_kursi")
     void deleteRowByScheduleIdAndNomorKursi(@Param("schedule_id") Long schedule_id,
