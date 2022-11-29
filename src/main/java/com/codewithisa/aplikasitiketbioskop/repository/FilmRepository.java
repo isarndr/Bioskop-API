@@ -2,10 +2,12 @@ package com.codewithisa.aplikasitiketbioskop.repository;
 
 import com.codewithisa.aplikasitiketbioskop.entity.Films;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +37,8 @@ public interface FilmRepository extends JpaRepository<Films,Long> {
      * @param film_name nama film yang ingin diubah (nama film sebelum diubah)
      * @param film_name_after nama film hasil perubahan (nama film setelah diubah)
      */
+    @Modifying
+    @Transactional
     @Query(nativeQuery = true,value = "call change_film_name(:film_name_before, :film_name_after)")
     void updateFilmName(@Param("film_name_before") String film_name, @Param("film_name_after") String film_name_after);
 
