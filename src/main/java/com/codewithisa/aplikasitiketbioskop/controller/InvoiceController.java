@@ -177,6 +177,8 @@ public class InvoiceController {
         }
         catch (Exception e){
             response.sendError(HttpStatus.BAD_REQUEST.value());
+            log.error("error in generating invoice {}", e.getMessage());
+            e.printStackTrace();
         }
     }
 }
