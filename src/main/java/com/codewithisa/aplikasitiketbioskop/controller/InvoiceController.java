@@ -150,8 +150,7 @@ public class InvoiceController {
 
         try{
             JasperReport sourceFileName = JasperCompileManager.compileReport(
-                    ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX+"tiket.jrxml")
-                            .getAbsolutePath()
+                    ResourceUtils.getFile("src/main/resources/tiket.jrxml").getAbsolutePath()
             );
             List<Map<String,String>> dataPemesan = new ArrayList<>();
             Map<String, String> pemesan = new HashMap<>();
