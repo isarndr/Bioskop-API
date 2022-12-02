@@ -59,8 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/auth/**",
 //                        "/users/add-user",
                         "/films/sedang-tayang",
-                        "/schedules/**",
-                        "/swagger-ui/**"
+                        "/schedules/**"
+//                        "/swagger-ui/**",
+//                        "/v3/api-docs/**"
                 ).permitAll()
                 .antMatchers(
                         "/films/add-film",
@@ -80,9 +81,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/swagger-ui/**",
-                "/v3/api-docs/**");
-         }
+    public void configure(final WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/**");
+    }
 }
 
