@@ -9,6 +9,7 @@ import com.codewithisa.aplikasitiketbioskop.service.ScheduleService;
 import com.codewithisa.aplikasitiketbioskop.service.SeatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,10 @@ public class FilmController {
     @Autowired
     SeatService seatService;
 
-    @Operation(summary = "untuk menambahkan film baru")
+    @Operation(
+            summary = "untuk menambahkan film baru",
+            security = { @SecurityRequirement(name = "bearer-key") }
+    )
     @PostMapping("add-film")
     public ResponseEntity<Films> addFilm(@RequestBody FilmRequest filmRequest){
         Films film = Films
@@ -116,13 +120,19 @@ public class FilmController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Operation(summary = "untuk mengubah nama film yang sudah terdaftar")
+    @Operation(
+            summary = "untuk mengubah nama film yang sudah terdaftar",
+            security = { @SecurityRequirement(name = "bearer-key") }
+    )
     @PutMapping("update-film-name/{filmCode}")
     public ResponseEntity<Films> updateFilmName(@Schema(example = "1") @PathVariable("filmCode") Long filmCode, @RequestBody Films film){
         return new ResponseEntity<>(filmService.updateFilmName(film, filmCode),HttpStatus.OK);
     }
 
-    @Operation(summary = "untuk menghapus film")
+    @Operation(
+            summary = "untuk menghapus film",
+            security = { @SecurityRequirement(name = "bearer-key") }
+    )
     @DeleteMapping("delete-film/{filmCode}")
     public ResponseEntity<String> deleteFilmByFilmCode(@Schema(example = "1") @PathVariable("filmCode") Long filmCode){
         List<Schedules> schedulesList=scheduleService.findAllSchedulesByFilmCode(filmCode);

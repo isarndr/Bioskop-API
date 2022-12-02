@@ -8,6 +8,7 @@ import com.codewithisa.aplikasitiketbioskop.entity.response.MessageResponse;
 import com.codewithisa.aplikasitiketbioskop.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -42,8 +43,11 @@ public class InvoiceController {
     @Autowired
     SeatService seatService;
 
-    @Operation(summary = "untuk membuat tiket dalam bentuk pdf. tiket hanya akan dibuat jika dan hanya jika " +
-            "pemesanan sukses (tiket tersedia sebelum dipesan)")
+    @Operation(
+            summary = "untuk membuat tiket dalam bentuk pdf. tiket hanya akan dibuat jika dan hanya jika " +
+            "pemesanan sukses (tiket tersedia sebelum dipesan)",
+            security = { @SecurityRequirement(name = "bearer-key") }
+    )
     @PostMapping("generate-tiket")
     public void generateTiket(HttpServletResponse response,
                                                          @Schema(example = "Nemo") @RequestParam("filmName") String filmName,

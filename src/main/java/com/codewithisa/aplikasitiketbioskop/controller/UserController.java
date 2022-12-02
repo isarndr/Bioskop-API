@@ -10,6 +10,7 @@ import com.codewithisa.aplikasitiketbioskop.repository.UserRepository;
 import com.codewithisa.aplikasitiketbioskop.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -71,7 +72,10 @@ public class UserController {
 //        return new ResponseEntity<>(userService.getUserByUserId(userId), HttpStatus.OK);
 //    }
 
-    @Operation(summary = "untuk mengubah user yang sudah terdaftar")
+    @Operation(
+            summary = "untuk mengubah user yang sudah terdaftar",
+            security = { @SecurityRequirement(name = "bearer-key") }
+    )
     @PutMapping("update-user/{userId}")
     public ResponseEntity<MessageResponse> updateUser(@Schema(example = "1") @PathVariable("userId") Long userId,
                                             @Valid @RequestBody SignupRequest signupRequest){
@@ -122,7 +126,10 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("User updated successfully"));
     }
 
-    @Operation(summary = "untuk menghapus user")
+    @Operation(
+            summary = "untuk menghapus user",
+            security = { @SecurityRequirement(name = "bearer-key") }
+    )
     @DeleteMapping("delete-user/{userId}")
     public ResponseEntity<String> deleteUser(@Schema(example = "1")  @PathVariable("userId") Long userId){
         userService.deleteUser(userId);
