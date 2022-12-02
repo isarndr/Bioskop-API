@@ -50,6 +50,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(final WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                "/swagger**/**",
+                "/*/api-docs"
+        );
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -84,10 +92,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
-//    @Override
-//    public void configure(final WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/**");
-//    }
 }
 
