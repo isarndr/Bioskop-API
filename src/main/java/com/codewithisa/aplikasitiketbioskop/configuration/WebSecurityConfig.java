@@ -64,6 +64,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                        "/v3/api-docs/**"
                 ).permitAll()
                 .antMatchers(
+                        "/swagger-ui/index.html",
+                        "/swagger-ui.html",
+                        "/v3/api-docs/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers(
                         "/films/add-film",
                         "/films/update-film-name/**",
                         "/films/delete-film/**"
@@ -80,9 +85,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Override
-    public void configure(final WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**");
-    }
+//    @Override
+//    public void configure(final WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/**");
+//    }
 }
 
