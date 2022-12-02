@@ -11,6 +11,7 @@ import com.codewithisa.aplikasitiketbioskop.entity.response.JwtResponse;
 import com.codewithisa.aplikasitiketbioskop.entity.response.MessageResponse;
 import com.codewithisa.aplikasitiketbioskop.repository.RoleRepository;
 import com.codewithisa.aplikasitiketbioskop.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +66,8 @@ public class LoginController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Operation(summary = "sign in untuk mendapatkan Bearer Token agar dapat mengakses end point. sign in hanya bisa dilakukan " +
+            "jika user sudah terdaftar di database (sudah sign up)")
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody Map<String, Object> login) {
         Authentication authentication = authenticationManager.authenticate(
@@ -85,6 +88,7 @@ public class LoginController {
                 roles));
     }
 
+    @Operation(summary = "sign up untuk mendaftarkan user ke database dan juga memberikan hak aksesnya")
     @PostMapping("/signup")
     public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
 //        System.out.println("signup!");

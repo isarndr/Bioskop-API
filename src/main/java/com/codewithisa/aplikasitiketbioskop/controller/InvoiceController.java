@@ -42,7 +42,8 @@ public class InvoiceController {
     @Autowired
     SeatService seatService;
 
-    @Operation(summary = "untuk membuat tiket dalam bentuk pdf")
+    @Operation(summary = "untuk membuat tiket dalam bentuk pdf. tiket hanya akan dibuat jika dan hanya jika " +
+            "pemesanan sukses (tiket tersedia sebelum dipesan)")
     @PostMapping("generate-tiket")
     public void generateTiket(HttpServletResponse response,
                                                          @Schema(example = "Nemo") @RequestParam("filmName") String filmName,
